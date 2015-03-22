@@ -15,7 +15,7 @@ savefile = os.path.expanduser('~/.mentalmath.dat')
 
 Result = namedtuple('Result', 'ok op left right value'.split())
 
-operators = {'+': add, '-': sub, '*': mul, '/': truediv}
+operators = {'+': add, '-': sub, 'x': mul, '/': truediv}
 
 
 def load(filename):
@@ -90,16 +90,16 @@ def main():
                         help='Lowest and highest operand values')
     parser.add_argument('--range2', '-r2', type=int, metavar='INT', nargs=2,
                         help='Lowest and highest other operand values')
-    parser.add_argument('--op', '-o', metavar='OPERATION',
-                        help='Arithmetic op (+ - * /)')
+    parser.add_argument('--ops', '-o', metavar='OPERATION',
+                        help='Arithmetic op (+-x/)')
     parser.add_argument('--shuffle', '-s', action="store_true")
     args = parser.parse_args()
 
     # db = load()
 
-    if args.op:
-        assert args.op in operators
-        candidate_ops = [args.op]
+    if args.ops:
+        assert set(args.ops) <= set(operators)
+        candidate_ops = list(args.ops)
     else:
         candidate_ops = list(operators.keys())
 
