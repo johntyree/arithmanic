@@ -6,10 +6,10 @@ from __future__ import division, print_function
 import os
 import math
 import json
+import random
 from operator import add, mul, sub, truediv
 from collections import namedtuple
 
-import numpy as np
 
 savefile = os.path.expanduser('~/.mentalmath.dat')
 
@@ -33,9 +33,9 @@ def save(record, filename):
 
 
 def choose_operands(left_range, right_range, shuffle=False):
-    left = np.random.random_integers(*left_range)
-    right = np.random.random_integers(*right_range)
-    if shuffle and np.random.random() > 0.5:
+    left = random.randint(*left_range)
+    right = random.randint(*right_range)
+    if shuffle and random.random() > 0.5:
         left, right = right, left
     return (left, right)
 
@@ -108,7 +108,7 @@ def main():
         range1 = args.range
         range2 = args.range2 if args.range2 else args.range
         while True:
-            op = np.random.choice(candidate_ops)
+            op = random.choice(candidate_ops)
             # weights = db[op]
             challenge = make_challenge(op, range1, range2, args.shuffle)
             tries = 2
