@@ -121,7 +121,7 @@ def main():
             if not result.ok:
                 print("    {}".format(result.value))
             # weight(weights, left, right, result.ok)
-    except EOFError:
+    except (EOFError, KeyboardInterrupt):
         print()
         show_stats(record)
         save(record, savefile)
